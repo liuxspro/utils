@@ -1,4 +1,4 @@
-export function random(minNum: number, maxNum?: number) {
+export function random(minNum: number, maxNum?: number): number {
     // 生成[n,m]的随机整数
     let by_min = Math.random() * minNum + 1;
     if (maxNum) {
