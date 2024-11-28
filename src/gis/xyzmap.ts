@@ -44,7 +44,7 @@ export class XYZMap {
     return create_layer(this.name, this.name, this.name, url_template);
   }
 
-  public as_wmts() {
+  public as_wmts(): string {
     const identification = crate_identification(this.name, this.name);
     const matrix_set = create_webmercator_MatrixSet(this.zmin, this.zmax);
     return create_capabilities(
