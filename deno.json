@@ -1,0 +1,6 @@
+{
+  "name": "@liuxspro/utils",
+  "version": "0.1.6",
+  "license": "MIT",
+  "exports": "./src/index.ts"
+}
