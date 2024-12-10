@@ -12,6 +12,14 @@ export class XYZMap {
   public zmax: number;
   public referer: string;
 
+  /**
+   *
+   * @param name name of map
+   * @param url map url like https://example.com/{z}/{x}/{y}
+   * @param zmin min zoom level (default 0)
+   * @param zmax max zoom level (default 18)
+   * @param referer HTTP referer (default "")
+   */
   constructor(
     name: string,
     url: string,
@@ -34,18 +42,36 @@ export class XYZMap {
   Zmax: ${this.zmax}
   `;
   }
-
-  public as_wmts_layer(): string {
+  /**
+   * 作为 WMTS Layer
+   * @param title Layer Title
+   * @param abstract Layer Abstract. Default this.name
+   * @param identifier Layer Identifier. Default this.name
+   * @returns Layer xml
+   */
+  public as_wmts_layer(
+    title: string = this.name,
+    abstract: string = this.name,
+    identifier: string = this.name
+  ): string {
     const url_template = this.url
       .replace(/\{z\}/g, "{TileMatrix}")
       .replace(/\{x\}/g, "{TileCol}")
       .replace(/\{y\}/g, "{TileRow}")
       .replace(/&/g, "&amp;");
-    return create_layer(this.name, this.name, this.name, url_template);
+    return create_layer(title, abstract, identifier, url_template);
   }
-
-  public as_wmts(): string {
-    const identification = crate_identification(this.name, this.name);
+  /**
+   * 返回 WMTS 能力文档
+   * @param title 标题. 默认为 this.name
+   * @param abstract 摘要. 默认为 this.name
+   * @returns 能力文档 XML
+   */
+  public as_wmts(
+    title: string = this.name,
+    abstract: string = this.name
+  ): string {
+    const identification = crate_identification(title, abstract);
     const matrix_set = create_webmercator_MatrixSet(this.zmin, this.zmax);
     return create_capabilities(
       identification,
