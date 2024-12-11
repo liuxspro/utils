@@ -60,6 +60,14 @@ export function crate_identification(title: string, abstract: string) {
   `;
 }
 
+/**
+ * 创建 Layer
+ * @param title Layer Title
+ * @param abstract Layer Abstract
+ * @param identifier Layer Identifier
+ * @param template Layer Template URL
+ * @returns Layer xml data
+ */
 export function create_layer(
   title: string,
   abstract: string,
